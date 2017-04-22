@@ -4,7 +4,7 @@ using System.Text;
 
 namespace App.Db.Models
 {
-    public class WeatherForecast : Entity
+    public class WeatherForecast : DbEntity
     {
         public DateTime Date { get; set; }
         public int TemperatureC { get; set; }

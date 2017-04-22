@@ -1,5 +1,4 @@
-﻿using System;
-using App.Db.Models;
+﻿using App.Db.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Db
@@ -15,5 +14,10 @@ namespace App.Db
         }
 
         public DbSet<WeatherForecast> WeatherForecasts { get; set; }
+
+        public DbSet<TEntity> CreateDbSet<TEntity>() where TEntity : class
+        {
+            return Set<TEntity>();
+        }
     }
 }

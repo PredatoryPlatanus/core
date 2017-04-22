@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using App.Db.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using App.Web.Models;
 
@@ -10,20 +9,20 @@ namespace App.Web.Controllers
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private static string[] Summaries = new[]
+        private readonly IWeatherForecastRepository weatherForecastRepository;
+        public SampleDataController(IWeatherForecastRepository weatherForecastRepository)
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+            this.weatherForecastRepository = weatherForecastRepository;
+        }
 
         [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return weatherForecastRepository.Get().Select(q => new WeatherForecast
             {
-                DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
+                DateFormatted = q.Date.ToString(),
+                TemperatureC = q.TemperatureC,
+                Summary = "herp"
             });
         }
     }
