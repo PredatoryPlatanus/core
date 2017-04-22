@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using App.Db.ServiceWiring;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 namespace App.Web
 {
@@ -23,12 +24,10 @@ namespace App.Web
             Configuration = builder.Build();
         }
 
-        public static Lazy<ContainerBuilder> Container => new Lazy<ContainerBuilder>(() => new DependencyContainerBuilder().Container);
-
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             services.AddMvc();
@@ -37,7 +36,11 @@ namespace App.Web
 
             services.AddEntityFramework(connectionString);
 
-            //return new Autofac.AutofacServiceProvider
+            var containerBuilder = new DependencyContainerBuilder().Builder;
+            containerBuilder.Populate(services);
+            var container = containerBuilder.Build();
+
+            return container.Resolve<IServiceProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

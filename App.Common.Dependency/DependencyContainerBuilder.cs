@@ -1,4 +1,5 @@
-﻿using App.Business.Contracts;
+﻿using App.Business;
+using App.Business.Contracts;
 using App.Db.Access;
 using App.Db.Contracts;
 using Autofac;
@@ -7,12 +8,12 @@ namespace App.Common.Dependency
 {
     public class DependencyContainerBuilder
     {
-        private readonly ContainerBuilder container;
-        public ContainerBuilder Container => container;
+        private readonly ContainerBuilder builder;
+        public ContainerBuilder Builder => builder;
 
         public DependencyContainerBuilder()
         {
-            container = new ContainerBuilder();
+            builder = new ContainerBuilder();
 
             RegisterRepositories();
             RegisterServices();
@@ -20,12 +21,12 @@ namespace App.Common.Dependency
 
         private void RegisterRepositories()
         {
-            container.RegisterType<IWeatherForecastRepository>().As<WeatherForecastRepository>();
+            builder.RegisterType<WeatherForecastRepository>().As<IWeatherForecastRepository>();
         }
 
         private void RegisterServices()
         {
-            container.RegisterType<IWeatherForecastService>().As<IWeatherForecastService>();
+            builder.RegisterType<WeatherForecastService>().As<IWeatherForecastService>();
         }
     }
 }
