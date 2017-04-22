@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using App.Db.Contracts;
-using App.Db.Models;
+using App.Db.Entities;
 
 namespace App.Db.Access
 {

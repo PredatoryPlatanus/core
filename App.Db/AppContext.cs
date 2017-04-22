@@ -1,4 +1,4 @@
-﻿using App.Db.Models;
+﻿using App.Db.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Db

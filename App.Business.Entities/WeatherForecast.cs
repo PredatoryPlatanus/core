@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using App.Common;
 
-namespace App.Db.Models
+namespace App.Business.Entities
 {
-    public class WeatherForecast : DbEntity
+    public class WeatherForecast : Entity
     {
         public DateTime Date { get; set; }
         public int TemperatureC { get; set; }

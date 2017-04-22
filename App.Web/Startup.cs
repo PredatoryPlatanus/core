@@ -1,17 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using App.Db.Access;
-using App.Db.Contracts;
+using App.Common.Dependency;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using App.Db.Extensions;
-using App.Db.Models;
+using App.Db.ServiceWiring;
+using Autofac;
 
 namespace App.Web
 {
@@ -27,6 +23,8 @@ namespace App.Web
             Configuration = builder.Build();
         }
 
+        public static Lazy<ContainerBuilder> Container => new Lazy<ContainerBuilder>(() => new DependencyContainerBuilder().Container);
+
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -38,7 +36,8 @@ namespace App.Web
             var connectionString = "Server=(localdb)\\v11.0;Database=AppDb;Trusted_Connection=True;";
 
             services.AddEntityFramework(connectionString);
-            services.AddTransient<IWeatherForecastRepository, WeatherForecastRepository>();
+
+            //return new Autofac.AutofacServiceProvider
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

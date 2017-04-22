@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace App.Db
+namespace App.Db.ServiceWiring
 {
     public class AppContextFactory : IDbContextFactory<AppContext>
     {

@@ -1,5 +1,4 @@
-﻿using System;
-using App.Db.Models;
+﻿using App.Db.Entities;
 
 namespace App.Db.Contracts
 {
