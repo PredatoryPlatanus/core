@@ -6,9 +6,12 @@ namespace App.Db
 {
     public class AppContext : DbContext
     {
+        public AppContext(DbContextOptions optionsBuilder) : base(optionsBuilder)
+        {;}
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AppDb;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(Config.ConnectionString);
         }
 
         public DbSet<WeatherForecast> WeatherForecasts { get; set; }
