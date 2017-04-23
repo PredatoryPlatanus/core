@@ -31,7 +31,7 @@ namespace App.Web
             // Add framework services.
             services.AddMvc();
 
-            var connectionString = "Server=(localdb)\\v11.0;Database=AppDb;Trusted_Connection=True;";
+            var connectionString = Configuration.GetConnectionString(Common.Constants.Config.DbName);
 
             var builder = new ContainerBuilder();
             var module = new AppModule(connectionString);
