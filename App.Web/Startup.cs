@@ -36,9 +36,12 @@ namespace App.Web
 
             services.AddEntityFramework(connectionString);
 
-            var containerBuilder = new DependencyContainerBuilder().Builder;
-            containerBuilder.Populate(services);
-            var container = containerBuilder.Build();
+            var builder = new ContainerBuilder();
+            var module = new AppModule(connectionString);
+
+            builder.RegisterModule(module);
+            builder.Populate(services);
+            var container = builder.Build();
 
             return container.Resolve<IServiceProvider>();
         }

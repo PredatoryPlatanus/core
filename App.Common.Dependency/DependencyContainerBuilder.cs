@@ -1,4 +1,5 @@
-﻿using App.Business;
+﻿using System;
+using App.Business;
 using App.Business.Contracts;
 using App.Db.Access;
 using App.Db.Contracts;
@@ -6,25 +7,30 @@ using Autofac;
 
 namespace App.Common.Dependency
 {
-    public class DependencyContainerBuilder
+    public class AppModule : Module
     {
-        private readonly ContainerBuilder builder;
-        public ContainerBuilder Builder => builder;
-
-        public DependencyContainerBuilder()
+        private readonly string connectionString;
+        public AppModule(string connectionString)
         {
-            builder = new ContainerBuilder();
+            if(string.IsNullOrEmpty(connectionString))
+                throw new ArgumentNullException(nameof(connectionString));
 
-            RegisterRepositories();
-            RegisterServices();
+            this.connectionString = connectionString;
         }
 
-        private void RegisterRepositories()
+        protected override void Load(ContainerBuilder builder)
+        {
+            RegisterRepositories(builder);
+            RegisterServices(builder);
+            base.Load(builder);
+        }
+
+        private void RegisterRepositories(ContainerBuilder builder)
         {
             builder.RegisterType<WeatherForecastRepository>().As<IWeatherForecastRepository>();
         }
 
-        private void RegisterServices()
+        private void RegisterServices(ContainerBuilder builder)
         {
             builder.RegisterType<WeatherForecastService>().As<IWeatherForecastService>();
         }

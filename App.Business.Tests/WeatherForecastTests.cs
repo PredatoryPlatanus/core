@@ -8,7 +8,7 @@ using It = Machine.Specifications.It;
 
 namespace App.Business.Tests
 {
-    public class WeatherForecastServiceSpecs
+    public class WeatherForecastService_specs
     {
         [Subject(typeof(WeatherForecastService))]
         public class WeatherForecastServiceContext
