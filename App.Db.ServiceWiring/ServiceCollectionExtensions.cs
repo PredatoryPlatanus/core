@@ -9,7 +9,7 @@ namespace App.Db.ServiceWiring
         //NOTE: avoid setting db context on services
         public static void AddEntityFramework(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<AppContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));
         }
     }

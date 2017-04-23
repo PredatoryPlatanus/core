@@ -1,9 +1,9 @@
 ﻿using System;
 using App.Business;
-using App.Business.Contracts;
+using App.Db;
 using App.Db.Access;
-using App.Db.Contracts;
 using Autofac;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Common.Dependency
 {
@@ -20,6 +20,16 @@ namespace App.Common.Dependency
 
         protected override void Load(ContainerBuilder builder)
         {
+            var optionsBuilder = new DbContextOptionsBuilder();
+            optionsBuilder.UseSqlServer(connectionString);
+            builder.RegisterInstance(optionsBuilder.Options);
+
+            builder.RegisterType<DbContextOptions>();
+            builder.RegisterType<AppDbContext>()
+                .AsSelf()
+                .InstancePerLifetimeScope()
+                .WithParameter("options", optionsBuilder.Options);
+
             RegisterRepositories(builder);
             RegisterServices(builder);
             base.Load(builder);
@@ -27,12 +37,12 @@ namespace App.Common.Dependency
 
         private void RegisterRepositories(ContainerBuilder builder)
         {
-            builder.RegisterType<WeatherForecastRepository>().As<IWeatherForecastRepository>();
+            builder.RegisterType<WeatherForecastRepository>().AsImplementedInterfaces();
         }
 
         private void RegisterServices(ContainerBuilder builder)
         {
-            builder.RegisterType<WeatherForecastService>().As<IWeatherForecastService>();
+            builder.RegisterType<WeatherForecastService>().AsImplementedInterfaces();
         }
     }
 }

@@ -7,9 +7,9 @@ namespace App.Db.Access
 {
     public abstract class RepositoryBase<T> : IDisposable, IRepositoryBase<T> where T : class
     {
-        protected readonly AppContext context;
+        protected readonly AppDbContext context;
         protected readonly DbSet<T> dbSet;
-        public RepositoryBase(AppContext context)
+        public RepositoryBase(AppDbContext context)
         {
             this.context = context;
             this.dbSet = context.CreateDbSet<T>();

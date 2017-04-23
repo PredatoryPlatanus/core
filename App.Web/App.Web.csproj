@@ -23,7 +23,6 @@
   <ItemGroup>
     <ProjectReference Include="..\App.Business.Contracts\App.Business.Contracts.csproj" />
     <ProjectReference Include="..\App.Common.Dependency\App.Common.Dependency.csproj" />
-    <ProjectReference Include="..\App.Db.ServiceWiring\App.Db.ServiceWiring.csproj" />
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->

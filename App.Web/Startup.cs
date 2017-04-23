@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using App.Db.ServiceWiring;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 
@@ -33,8 +32,6 @@ namespace App.Web
             services.AddMvc();
 
             var connectionString = "Server=(localdb)\\v11.0;Database=AppDb;Trusted_Connection=True;";
-
-            services.AddEntityFramework(connectionString);
 
             var builder = new ContainerBuilder();
             var module = new AppModule(connectionString);

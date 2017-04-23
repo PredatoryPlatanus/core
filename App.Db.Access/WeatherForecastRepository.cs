@@ -8,7 +8,7 @@ namespace App.Db.Access
 {
     public class WeatherForecastRepository : RepositoryBase<WeatherForecast>, IWeatherForecastRepository
     {
-        public WeatherForecastRepository(AppContext context) : base(context)
+        public WeatherForecastRepository(AppDbContext context) : base(context)
         {
         }
     }
